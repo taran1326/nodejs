@@ -1,7 +1,20 @@
 const User = require('../models/user')
+const { use } = require('../routes/users')
 
 module.exports.profile = function(req, res){
-    return res.end('<h1> User profile </h1>')
+    if(req.cookies.user_id){
+        User.findById(req.cookies.user_id , function(err, user){
+            if(user){
+                return res.render('profile' , {
+                    title: "User profile",
+                    user : user 
+                })
+            }else{
+                return res.redirect('/sign-in'); 
+            }
+            
+        })
+    }
 }
 
 
@@ -52,5 +65,20 @@ module.exports.create = function(req, res){
 
 
 module.exports.createSession = function(req, res){
+    
+    User.findOne({email: req.body.email} , function(errr, user){
+
+        if(user){
+            if(user.password != req.body.password){
+                return res.redirect('back');
+            }
+
+            res.cookie('user_id' , user._id);
+            res.redirect('/users/profile')
+
+        }else{
+            return res.redirect('back');
+        }
+    })
     //TODO
 }
