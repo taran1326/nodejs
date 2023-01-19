@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const { use } = require('../routes/users')
+
 
 module.exports.profile = function(req, res){
     if(req.cookies.user_id){

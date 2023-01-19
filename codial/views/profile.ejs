@@ -3,5 +3,20 @@
 <h1>Profile</h1>
 
 <p>
-
+    Name: <%= user.name %>
+    <br>
+    Email <%= user.email%>
 </p>
+
+<section id="feed-post">
+    <h4>
+        Posts
+    </h4>
+
+    <form action="/posts/create" id = "new-post" method = "post" >
+        <textarea name="content" id="" cols="30" rows="10" placeholder="Text here.."></textarea>
+        <input type="submit" value="Post">
+    </form>
+
+
+</section>
